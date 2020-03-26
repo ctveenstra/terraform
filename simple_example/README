@@ -1,0 +1,1 @@
+Clearly the .tf scripts in this directory are teraform <= 0.11, and have not been updated to the latest version.  The will not work without editing.

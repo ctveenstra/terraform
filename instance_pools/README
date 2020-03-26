@@ -1,0 +1,18 @@
+This is a working copy of the example terraform scripts for working with Instance Pools.  This has been edited to work with Terraform 0.12+.
+
+Note that this set of scripts requires several policy statements to be added to the OCI tenancy to function:
+
+
+1)  Allow service compute_management to use tag-namespace in compartment <compartment>
+
+	This corrects for failures due to a known issue with defined tags, this is only a workaround and the core problem will be corrected eventually.
+
+
+2) Allow group <group> to manage compute-management-family in compartment <compartment>
+
+	Apparently without this explicit grant, the non-admin users are not able to create the instance pool.
+
+
+3) Allow group <group> to use instance-pools in tenancy
+
+	Grant to allow use of instance-pools, does NOT work without the statement listed in #2

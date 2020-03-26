@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#cd /home/opc
+#sudo yum update -y | tee -a /home/opc/yum_update
+#wget https://raw.githubusercontent.com/oracle/terraform-provider-oci/master/docs/examples/storage/nfs/userdata/iscsiattach.sh > wget.out
+#chmod +x iscsiattach.sh
+#/home/opc/iscsiattach.sh | tee -a /home/opc/iscsiattach.out
+
+
+### Storage setup
+wget -O /usr/local/bin/iscsiattach.sh https://raw.githubusercontent.com/oracle/terraform-provider-oci/master/docs/examples/storage/nfs/userdata/iscsiattach.sh
+chmod +x /usr/local/bin/iscsiattach.sh
+/usr/local/bin/iscsiattach.sh
+mkfs.xfs /dev/sdb
+mkdir /u01
+mount -t xfs /dev/sdb /u01
+sdb_uuid=`blkid /dev/sdb -s UUID -o value`
+echo "UUID=$sdb_uuid    /u01    xfs    defaults,noatime,_netdev,nofail" >> /etc/fstab
+
